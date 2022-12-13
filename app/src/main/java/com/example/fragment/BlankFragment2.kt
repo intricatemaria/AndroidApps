@@ -5,19 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 
-class BlankFragment2 : Fragment() {
+class BlankFragment2 : Fragment(R.layout.fragment_blank2) {
+    lateinit var controller: NavController
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank2, container, false)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = BlankFragment2()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        controller = findNavController()
+        var button = view.findViewById<Button>(R.id.switchBackButton)
+        button.setOnClickListener {
+            controller.navigate(R.id.action_blankFragment2_to_blankFragment)
+        }
     }
 }
