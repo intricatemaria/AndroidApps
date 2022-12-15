@@ -1,29 +1,31 @@
 package com.example.fragment
 
-import android.annotation.SuppressLint
-import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.room.Room
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
-
-    @SuppressLint("MissingInflatedId")
+    lateinit var editFragment: EditFragment
+    lateinit var viewFragment: ViewFragment
+    lateinit var database: PostDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val postsApi = PostRetrofit.getRetrofit()
+        editFragment = EditFragment.newInstance()
+        viewFragment = ViewFragment.newInstance()
+        database = Room.databaseBuilder(this, PostDatabase::class.java, "post")
+            .build()
+    }
 
+    fun toView(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, viewFragment)
+            .commit()
+    }
 
-        val button = findViewById<Button>(R.id.getPostButton)
-        val textView = findViewById<TextView>(R.id.postsText)
-        viewModel.postsLiveData.observe(this) {
-            textView.text = it.toString()
-        }
-        button.setOnClickListener {
-            viewModel.updatePostsFromDatabase(this)
-        }
+    fun toEdit(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, editFragment)
+            .commit()
     }
 }
