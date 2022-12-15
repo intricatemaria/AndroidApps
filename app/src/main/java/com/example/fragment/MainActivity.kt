@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.webapp.R
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
