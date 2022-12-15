@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.room.Room
 
+
 class MainActivity : AppCompatActivity() {
     lateinit var editFragment: EditFragment
     lateinit var viewFragment: ViewFragment
